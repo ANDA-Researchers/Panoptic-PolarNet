@@ -17,10 +17,12 @@ from torch.utils import data
 from .process_panoptic import PanopticLabelGenerator
 from .instance_augmentation import instance_augmentation
 
+
 class SemKITTI(data.Dataset):
-    def __init__(self, data_path, imageset = 'train', return_ref = False, instance_pkl_path ='data'):
+
+    def __init__(self, data_path, imageset = 'train', return_ref = False, instance_pkl_path ='data', config_path = 'semantic-kitti.yaml'):
         self.return_ref = return_ref
-        with open("semantic-kitti.yaml", 'r') as stream:
+        with open(config_path, 'r') as stream:
             semkittiyaml = yaml.safe_load(stream)
         self.learning_map = semkittiyaml['learning_map']
         thing_class = semkittiyaml['thing_class']
@@ -457,7 +459,8 @@ def collate_fn_BEV_test(data):
     return torch.from_numpy(data2stack),torch.from_numpy(label2stack),torch.from_numpy(center2stack),torch.from_numpy(offset2stack),grid_ind_stack,point_label,point_inst,xyz,index
 
 # load Semantic KITTI class info
-with open("semantic-kitti.yaml", 'r') as stream:
+# TODO: Remove hard-coded path
+with open("sk2ns.yaml", 'r') as stream:
     semkittiyaml = yaml.safe_load(stream)
 SemKITTI_label_name = dict()
 for i in sorted(list(semkittiyaml['learning_map'].keys()))[::-1]:
