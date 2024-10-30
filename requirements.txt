@@ -1,5 +1,4 @@
 numpy<1.20
-torch==1.7.0
 tqdm
 pyyaml
 numba>=0.39.0
