@@ -460,7 +460,7 @@ def collate_fn_BEV_test(data):
 
 # load Semantic KITTI class info
 # TODO: Remove hard-coded path
-with open("sk2ns.yaml", 'r') as stream:
+with open("semantic-kitti-remap.yaml", 'r') as stream:
     semkittiyaml = yaml.safe_load(stream)
 SemKITTI_label_name = dict()
 for i in sorted(list(semkittiyaml['learning_map'].keys()))[::-1]:
